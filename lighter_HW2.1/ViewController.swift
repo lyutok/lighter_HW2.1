@@ -8,10 +8,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet var redLightView: UIView!
     @IBOutlet var yellowLightView: UIView!
     @IBOutlet var greenLightView: UIView!
+    
+    var darkRed: Bool = true
+    var darkYellow: Bool = true
+    var darkGreen: Bool = true
     
     @IBOutlet var buttonPressText: UIButton!
     
@@ -30,9 +34,31 @@ class ViewController: UIViewController {
         buttonPressText.layer.cornerRadius = 10
         
     }
-
+    
     @IBAction func buttonPressed() {
-        
+        if darkRed && darkYellow && darkGreen {
+            redLightView.alpha = 1
+            darkRed = false
+            buttonPressText.setTitle("NEXT", for: .normal)
+            
+        } else if !darkRed && darkYellow && darkGreen {
+            redLightView.alpha = 0.3
+            darkRed = true
+            yellowLightView.alpha = 1
+            darkYellow = false
+            
+        } else if darkRed && !darkYellow && darkGreen {
+            yellowLightView.alpha = 0.3
+            darkYellow = true
+            greenLightView.alpha = 1
+            darkGreen = false
+            
+        } else if darkRed && darkYellow && !darkGreen {
+            greenLightView.alpha = 0.3
+            darkGreen = true
+            redLightView.alpha = 1
+            darkRed = false
+        }
     }
 }
 
